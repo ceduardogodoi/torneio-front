@@ -11,10 +11,13 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "@types/react-text-mask": "^5.4.6",
+    "formik": "^2.1.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "react-text-mask": "^5.4.3"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",
