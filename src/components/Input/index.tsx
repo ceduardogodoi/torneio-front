@@ -47,11 +47,6 @@ type InputProps = {
    * Name attribute of the input element.
    */
   name: string;
-
-  /**
-   * The default value of the input element.
-   */
-  value: string;
 } & MaterialInputProps &
   MaskProps;
 
@@ -60,7 +55,9 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
 
   return (
     <FormControl>
-      <InputLabel htmlFor={id}>{label}</InputLabel>
+      <InputLabel disableAnimation htmlFor={id}>
+        {label}
+      </InputLabel>
       <MaterialInput
         {...other}
         value={value}

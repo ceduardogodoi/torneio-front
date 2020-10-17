@@ -1,4 +1,4 @@
-export type Masks = 'cep' | 'cpf';
+export type Masks = 'cep' | 'cpf' | 'cnpj';
 
 export type MaskProps = {
   /**
@@ -21,6 +21,27 @@ export function getMask(mask: Masks): (string | RegExp)[] {
         /\d/,
         /\d/,
         '.',
+        /\d/,
+        /\d/,
+        /\d/,
+        '-',
+        /\d/,
+        /\d/
+      ];
+    case 'cnpj':
+      return [
+        /\d/,
+        /\d/,
+        '.',
+        /\d/,
+        /\d/,
+        /\d/,
+        '.',
+        /\d/,
+        /\d/,
+        /\d/,
+        '/',
+        /\d/,
         /\d/,
         /\d/,
         /\d/,
