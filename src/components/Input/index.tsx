@@ -13,7 +13,7 @@ type MaskedProps = {
   /**
    * The parent's component ref.
    */
-  inputRef(ref: HTMLInputElement): void;
+  inputRef(ref: HTMLElement): void | null;
 } & MaskProps;
 
 const Masked: React.FC<MaskedProps> = (props: MaskedProps) => {
@@ -22,8 +22,8 @@ const Masked: React.FC<MaskedProps> = (props: MaskedProps) => {
   return (
     <MaskedInput
       {...other}
-      ref={(ref: any) => {
-        inputRef(ref ? ref.inputElement : null);
+      ref={(ref: MaskedInput) => {
+        inputRef(ref?.inputElement ?? null);
       }}
       mask={getMask(mask)}
       placeholderChar={'\u2000'}
