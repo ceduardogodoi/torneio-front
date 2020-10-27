@@ -2,12 +2,12 @@ export type Masks = 'cep' | 'cpf' | 'cnpj';
 
 export type MaskProps = {
   /**
-   * The type of the mask used.
+   * (Optional) The type of the mask used.
    */
-  mask: Masks;
+  mask?: Masks;
 };
 
-export function getMask(mask: Masks): (string | RegExp)[] {
+export function getMask(mask?: Masks): (string | RegExp)[] | undefined {
   switch (mask) {
     case 'cep':
       return [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
@@ -50,6 +50,6 @@ export function getMask(mask: Masks): (string | RegExp)[] {
         /\d/
       ];
     default:
-      return [/./];
+      return undefined;
   }
 }

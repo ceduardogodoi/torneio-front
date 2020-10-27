@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Avatar,
-  Card,
-  CardContent,
-  CardHeader,
-  FormControl,
-  Grid,
-  InputLabel,
-  Input as MaterialInput
-} from '@material-ui/core';
+import { Avatar, Card, CardContent, CardHeader, Grid } from '@material-ui/core';
 import Input from '../components/Input';
 
 interface State {
@@ -45,16 +36,15 @@ const Associacao: React.FC = () => {
                 />
               </Grid>
               <Grid item xs={9}>
-                <FormControl fullWidth>
-                  <InputLabel htmlFor="nome">Nome</InputLabel>
-                  <MaterialInput
-                    id="input-nome"
-                    name="nome"
-                    value={state.nome}
-                    onChange={e => setState({ ...state, nome: e.target.value })}
-                    inputProps={{ maxLength: 150 }}
-                  />
-                </FormControl>
+                <Input
+                  id="input-nome"
+                  name="nome"
+                  label="Nome"
+                  value={state.nome}
+                  onChange={e => setState({ ...state, nome: e.target.value })}
+                  inputProps={{ maxLength: 150 }}
+                  fullWidth
+                />
               </Grid>
             </Grid>
           </Grid>

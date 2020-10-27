@@ -50,19 +50,22 @@ type InputProps = {
   MaskProps;
 
 const Input: React.FC<InputProps> = (props: InputProps) => {
-  const { id, label, name, value, mask, fullWidth, ...other } = props;
+  const { id, label, name, mask, fullWidth, ...other } = props;
 
   return (
     <FormControl fullWidth={fullWidth}>
       <InputLabel htmlFor={id}>{label}</InputLabel>
-      <MaterialInput
-        {...other}
-        value={value}
-        name={name}
-        id={id}
-        inputComponent={Masked as any}
-        inputProps={{ mask }}
-      />
+      {mask ? (
+        <MaterialInput
+          {...other}
+          name={name}
+          id={id}
+          inputComponent={Masked as any}
+          inputProps={{ mask }}
+        />
+      ) : (
+        <MaterialInput {...other} name={name} id={id} />
+      )}
     </FormControl>
   );
 };
