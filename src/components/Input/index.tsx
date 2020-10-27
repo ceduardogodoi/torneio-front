@@ -27,7 +27,6 @@ const Masked: React.FC<MaskedProps> = (props: MaskedProps) => {
       }}
       mask={getMask(mask)}
       placeholderChar={'\u2000'}
-      showMask
     />
   );
 };
@@ -51,10 +50,10 @@ type InputProps = {
   MaskProps;
 
 const Input: React.FC<InputProps> = (props: InputProps) => {
-  const { id, label, name, value, mask, ...other } = props;
+  const { id, label, name, value, mask, fullWidth, ...other } = props;
 
   return (
-    <FormControl>
+    <FormControl fullWidth={fullWidth}>
       <InputLabel disableAnimation htmlFor={id}>
         {label}
       </InputLabel>

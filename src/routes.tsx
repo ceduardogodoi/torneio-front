@@ -13,7 +13,7 @@ const useStyles = makeStyles<Theme>((theme: Theme) =>
   })
 );
 
-const Router = () => {
+const Router: React.FC = () => {
   const classes = useStyles();
 
   return (
