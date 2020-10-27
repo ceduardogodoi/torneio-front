@@ -60,7 +60,7 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
           {...other}
           name={name}
           id={id}
-          inputComponent={Masked as any}
+          inputComponent={Masked as React.FC}
           inputProps={{ mask }}
         />
       ) : (
