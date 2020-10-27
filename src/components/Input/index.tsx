@@ -54,9 +54,7 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
 
   return (
     <FormControl fullWidth={fullWidth}>
-      <InputLabel disableAnimation htmlFor={id}>
-        {label}
-      </InputLabel>
+      <InputLabel htmlFor={id}>{label}</InputLabel>
       <MaterialInput
         {...other}
         value={value}

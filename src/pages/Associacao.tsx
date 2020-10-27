@@ -46,9 +46,7 @@ const Associacao: React.FC = () => {
               </Grid>
               <Grid item xs={9}>
                 <FormControl fullWidth>
-                  <InputLabel disableAnimation htmlFor="nome">
-                    Nome
-                  </InputLabel>
+                  <InputLabel htmlFor="nome">Nome</InputLabel>
                   <MaterialInput
                     id="input-nome"
                     name="nome"
