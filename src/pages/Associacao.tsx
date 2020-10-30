@@ -1,56 +1,78 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik';
 import { Avatar, Card, CardContent, CardHeader, Grid } from '@material-ui/core';
 import Input from '../components/Input';
 
-interface State {
+interface IAssociacao {
   cnpj?: string;
   nome?: string;
 }
 
 const Associacao: React.FC = () => {
-  const [state, setState] = useState<State>({
+  const initialValues: IAssociacao = {
     cnpj: '',
     nome: ''
-  });
+  };
 
   return (
-    <form>
-      <Card>
-        <CardHeader
-          avatar={<Avatar aria-label="associacao">A</Avatar>}
-          title="Associações"
-          subheader="Controle e Cadastro"
-        />
-        <CardContent>
-          <Grid container>
-            <Grid container spacing={2}>
-              <Grid item xs={3}>
-                <Input
-                  id="input-cnpj"
-                  name="cnpj"
-                  label="CNPJ"
-                  mask="cnpj"
-                  value={state.cnpj}
-                  onChange={e => setState({ ...state, cnpj: e.target.value })}
-                  fullWidth
-                />
+    <Formik
+      initialValues={initialValues}
+      onSubmit={(values, { setSubmitting }: FormikHelpers<IAssociacao>) => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+          setSubmitting(false);
+        }, 500);
+      }}
+    >
+      {({ isSubmitting }) => (
+        <Form>
+          <Card>
+            <CardHeader
+              avatar={<Avatar aria-label="associacao">A</Avatar>}
+              title="Associações"
+              subheader="Controle e Cadastro"
+            />
+            <CardContent>
+              <Grid container>
+                <Grid container spacing={2}>
+                  <Grid item xs={3}>
+                    <Field name="cnpj">
+                      {({ field }: FieldProps<IAssociacao>) => (
+                        <Input
+                          {...field}
+                          id="input-cnpj"
+                          label="CNPJ"
+                          mask="cnpj"
+                          fullWidth
+                        />
+                      )}
+                    </Field>
+                  </Grid>
+                  <Grid item xs={9}>
+                    <Field name="nome">
+                      {({ field }: FieldProps<IAssociacao>) => (
+                        <Input
+                          {...field}
+                          id="input-nome"
+                          label="Nome"
+                          inputProps={{ maxLength: 150 }}
+                          fullWidth
+                        />
+                      )}
+                    </Field>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <button type="submit" disabled={isSubmitting}>
+                      Clique aqui bichão
+                    </button>
+                  </Grid>
+                </Grid>
               </Grid>
-              <Grid item xs={9}>
-                <Input
-                  id="input-nome"
-                  name="nome"
-                  label="Nome"
-                  value={state.nome}
-                  onChange={e => setState({ ...state, nome: e.target.value })}
-                  inputProps={{ maxLength: 150 }}
-                  fullWidth
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
-    </form>
+            </CardContent>
+          </Card>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
