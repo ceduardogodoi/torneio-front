@@ -41,11 +41,6 @@ type InputProps = {
    * The label content.
    */
   label: string;
-
-  /**
-   * Name attribute of the input element.
-   */
-  name: string;
 } & MaterialInputProps &
   MaskProps;
 
