@@ -11,6 +11,7 @@ import {
   makeStyles,
   createStyles
 } from '@material-ui/core';
+import 'date-fns';
 import Input from '../components/Input';
 
 const useStyles = makeStyles(() =>
@@ -118,8 +119,13 @@ const Associacao: React.FC = () => {
                           {...field}
                           id="input-data-cadastro"
                           label="Data de cadastro"
+                          mask="data"
                           inputProps={{ maxLength: 10 }}
                           fullWidth
+                          defaultValue={new Date(Date.now()).toLocaleDateString(
+                            'pt-BR'
+                          )}
+                          disabled
                         />
                       )}
                     </Field>
