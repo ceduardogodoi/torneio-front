@@ -1,17 +1,41 @@
 import React from 'react';
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik';
-import { Avatar, Card, CardContent, CardHeader, Grid } from '@material-ui/core';
+import {
+  Avatar,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+  Button,
+  CardActions,
+  makeStyles,
+  createStyles
+} from '@material-ui/core';
 import Input from '../components/Input';
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    revert: {
+      flexDirection: 'row-reverse'
+    }
+  })
+);
 
 interface IAssociacao {
   cnpj?: string;
   nome?: string;
+  sigla?: string;
+  cidade?: string;
 }
 
 const Associacao: React.FC = () => {
+  const classes = useStyles();
+
   const initialValues: IAssociacao = {
     cnpj: '',
-    nome: ''
+    nome: '',
+    sigla: '',
+    cidade: ''
   };
 
   return (
@@ -61,14 +85,53 @@ const Associacao: React.FC = () => {
                       )}
                     </Field>
                   </Grid>
-                  <Grid item xs={12}>
-                    <button type="submit" disabled={isSubmitting}>
-                      Clique aqui bichão
-                    </button>
+                  <Grid item xs={3}>
+                    <Field name="sigla">
+                      {({ field }: FieldProps<IAssociacao>) => (
+                        <Input
+                          {...field}
+                          id="input-sigla"
+                          label="Sigla"
+                          inputProps={{ maxLength: 10 }}
+                          fullWidth
+                        />
+                      )}
+                    </Field>
+                  </Grid>
+                  <Grid item xs={9}>
+                    <Field name="cidade">
+                      {({ field }: FieldProps<IAssociacao>) => (
+                        <Input
+                          {...field}
+                          id="input-cidade"
+                          label="Cidade"
+                          inputProps={{ maxLength: 150 }}
+                          fullWidth
+                        />
+                      )}
+                    </Field>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Field name="data-cadastro">
+                      {({ field }: FieldProps<IAssociacao>) => (
+                        <Input
+                          {...field}
+                          id="input-data-cadastro"
+                          label="Data de cadastro"
+                          inputProps={{ maxLength: 10 }}
+                          fullWidth
+                        />
+                      )}
+                    </Field>
                   </Grid>
                 </Grid>
               </Grid>
             </CardContent>
+            <CardActions className={classes.revert}>
+              <Button type="submit" disabled={isSubmitting}>
+                Salvar
+              </Button>
+            </CardActions>
           </Card>
         </Form>
       )}
