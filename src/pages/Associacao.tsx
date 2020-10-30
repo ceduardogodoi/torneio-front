@@ -1,3 +1,4 @@
+import 'date-fns';
 import React from 'react';
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik';
 import {
@@ -7,49 +8,63 @@ import {
   CardHeader,
   Grid,
   Button,
-  CardActions,
-  makeStyles,
-  createStyles
+  CardActions
 } from '@material-ui/core';
-import 'date-fns';
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+
 import Input from '../components/Input';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    revert: {
-      flexDirection: 'row-reverse'
-    }
-  })
-);
-
 interface IAssociacao {
+  /**
+   * (Opcional) O CNPJ da Associacão.
+   */
   cnpj?: string;
+
+  /**
+   * (Opcional) O Nome da Associação.
+   */
   nome?: string;
+
+  /**
+   * (Opcional) A Sigla da Associação.
+   */
   sigla?: string;
+
+  /**
+   * (Opcional) A Cidade da Associação.
+   */
   cidade?: string;
+
+  /**
+   * A Data de Cadastro da Associação.
+   *
+   * Por padrão a data atual.
+   */
+  data: Date;
 }
 
 const Associacao: React.FC = () => {
-  const classes = useStyles();
-
   const initialValues: IAssociacao = {
     cnpj: '',
     nome: '',
     sigla: '',
-    cidade: ''
+    cidade: '',
+    data: new Date()
   };
 
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={(values, { setSubmitting }: FormikHelpers<IAssociacao>) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 500);
+        console.log(values);
+        setSubmitting(false);
       }}
     >
-      {({ isSubmitting }) => (
+      {({ isSubmitting, setFieldValue }) => (
         <Form>
           <Card>
             <CardHeader
@@ -113,30 +128,32 @@ const Associacao: React.FC = () => {
                     </Field>
                   </Grid>
                   <Grid item xs={4}>
-                    <Field name="data-cadastro">
-                      {({ field }: FieldProps<IAssociacao>) => (
-                        <Input
-                          {...field}
-                          id="input-data-cadastro"
-                          label="Data de cadastro"
-                          mask="data"
-                          inputProps={{ maxLength: 10 }}
-                          fullWidth
-                          defaultValue={new Date(Date.now()).toLocaleDateString(
-                            'pt-BR'
-                          )}
-                          disabled
-                        />
-                      )}
-                    </Field>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <Field name="data">
+                        {({ field }: FieldProps<IAssociacao>) => (
+                          <KeyboardDatePicker
+                            {...field}
+                            disableToolbar
+                            id="input-data"
+                            format="dd/MM/yyyy"
+                            label="Data de Cadastro"
+                            onChange={date => setFieldValue('data', date)}
+                            invalidDateMessage="Formato inválido"
+                            disabled
+                          />
+                        )}
+                      </Field>
+                    </MuiPickersUtilsProvider>
                   </Grid>
                 </Grid>
               </Grid>
             </CardContent>
-            <CardActions className={classes.revert}>
-              <Button type="submit" disabled={isSubmitting}>
-                Salvar
-              </Button>
+            <CardActions>
+              <Grid container justify="flex-end">
+                <Button type="submit" disabled={isSubmitting}>
+                  Salvar
+                </Button>
+              </Grid>
             </CardActions>
           </Card>
         </Form>
