@@ -60,6 +60,7 @@ const Associacao: React.FC = () => {
     <Formik
       initialValues={initialValues}
       onSubmit={(values, { setSubmitting }: FormikHelpers<IAssociacao>) => {
+        // eslint-disable-next-line no-console
         console.log(values);
         setSubmitting(false);
       }}
