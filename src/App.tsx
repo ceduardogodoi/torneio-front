@@ -13,7 +13,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const App: React.FC = () => {
+const App: React.VFC = () => {
   const classes = useStyles();
 
   return (

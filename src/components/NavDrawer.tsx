@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const NavDrawer: React.FC = () => {
+const NavDrawer: React.VFC = () => {
   const classes = useStyles();
 
   return (

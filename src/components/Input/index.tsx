@@ -16,7 +16,7 @@ type MaskedProps = {
   inputRef(ref: HTMLElement): void | null;
 } & MaskProps;
 
-const Masked: React.FC<MaskedProps> = (props: MaskedProps) => {
+const Masked: React.VFC<MaskedProps> = (props: MaskedProps) => {
   const { inputRef, mask, ...other } = props;
 
   return (
@@ -44,7 +44,7 @@ type InputProps = {
 } & MaterialInputProps &
   MaskProps;
 
-const Input: React.FC<InputProps> = (props: InputProps) => {
+const Input: React.VFC<InputProps> = (props: InputProps) => {
   const { id, label, name, mask, fullWidth, ...other } = props;
 
   return (
@@ -55,7 +55,7 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
           {...other}
           name={name}
           id={id}
-          inputComponent={Masked as React.FC}
+          inputComponent={Masked as React.VFC}
           inputProps={{ mask }}
         />
       ) : (

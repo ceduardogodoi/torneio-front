@@ -47,7 +47,7 @@ interface IAssociacao {
   data: Date;
 }
 
-const Associacao: React.FC = () => {
+const Associacao: React.VFC = () => {
   const initialValues: IAssociacao = {
     cnpj: '',
     nome: '',

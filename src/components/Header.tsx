@@ -18,10 +18,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Header: React.FC = () => {
+const Header: React.VFC = () => {
   const classes = useStyles();
 
-  const handleClickLogout = () => alert('Deslogando-se');
+  const handleClickLogout = (): void => alert('Deslogando-se');
 
   // Criar AppBar com Nome do Usuário Logado e Logout
   return (
