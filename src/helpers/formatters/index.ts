@@ -1,12 +1,10 @@
 import FormatError from '../../errors/FormatError';
 
 /**
- * Formats a 14 characters long string into a CNPJ string.
- * `(e.g: '99.999.999/9999.99')`.
+ * Formata uma string de 14 caracteres para uma string no formato de CNPJ.
  *
- * The all 14 characters must be number compatible ([0-9]{14}).
- * @param value A string having 14 number characters.
- * @returns a string formatted as a CNPJ.
+ * @param value Uma string tendo 14 caracteres numéricos
+ * @returns Uma string formatada como CNPJ `(ex: '99.999.999/9999.99')`.
  */
 function formatToCNPJ(value: string): string {
   if (typeof value !== 'string') {
@@ -23,9 +21,9 @@ function formatToCNPJ(value: string): string {
 }
 
 /**
- * Extracts only the numbers as a string of a CNPJ string.
- * @param value A string having the CNPJ format `(e.g: 99.999.999/9999-99)`
- * @returns A string having only the CNPJ numbers.
+ * Extrai somente os números de um CNPJ, como string.
+ * @param value Uma string tendo o formato de CNPJ `(ex: '99.999.999/9999-99')`
+ * @returns Uma string tendo somente os números do CNPJ.
  */
 function unformatFromCNPJ(value: string): string {
   if (typeof value !== 'string') {

@@ -1,12 +1,10 @@
 /**
- * Error handling for formatting exceptions.
- *
- * It treats exceptions when it was not possible to format some kind of data.
+ * Manuseador de exceções em formatações.
  */
 class FormatError extends Error {
   /**
-   * Constructs a FormatException object.
-   * @param message The message to be shown.
+   * Trata exceções quando não é possível formatar algum tipo de dado.
+   * @param message A mensagem a ser exibida.
    */
   constructor(public message: string) {
     super(message);
