@@ -15,57 +15,54 @@ import {
   MuiPickersUtilsProvider
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import * as Yup from 'yup';
+
+import Associacao from '../models/Associacao';
+
+import { fetchSaveAssociacao } from '../services/associacao-service';
 
 import Input from '../components/Input';
 
-interface IAssociacao {
-  /**
-   * (Opcional) O CNPJ da Associacão.
-   */
-  cnpj?: string;
+const associacaoSchema = Yup.object({
+  id: Yup.number().notRequired(),
+  cnpj: Yup.string().notRequired(),
+  nome: Yup.string().required('Nome é obrigatório'),
+  sigla: Yup.string().required('Sigla é obrigatória'),
+  cidade: Yup.string().notRequired(),
+  data_cadastro: Yup.date().required()
+});
 
-  /**
-   * (Opcional) O Nome da Associação.
-   */
-  nome?: string;
-
-  /**
-   * (Opcional) A Sigla da Associação.
-   */
-  sigla?: string;
-
-  /**
-   * (Opcional) A Cidade da Associação.
-   */
-  cidade?: string;
-
-  /**
-   * A Data de Cadastro da Associação.
-   *
-   * Por padrão a data atual.
-   */
-  data: Date;
-}
-
-const Associacao: React.VFC = () => {
-  const initialValues: IAssociacao = {
+const AssociacaoPage: React.VFC = () => {
+  const initialValues: Associacao = {
     cnpj: '',
     nome: '',
     sigla: '',
     cidade: '',
-    data: new Date()
+    data_cadastro: new Date()
   };
+
+  async function handleSubmit(
+    value: Associacao,
+    formikHelpers: FormikHelpers<Associacao>
+  ): Promise<void> {
+    const { setSubmitting } = formikHelpers;
+
+    console.log(value);
+
+    const associacao = await fetchSaveAssociacao(value);
+
+    console.log('associação salva:', associacao);
+
+    setSubmitting(false);
+  }
 
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={(values, { setSubmitting }: FormikHelpers<IAssociacao>) => {
-        // eslint-disable-next-line no-console
-        console.log(values);
-        setSubmitting(false);
-      }}
+      validationSchema={associacaoSchema}
+      onSubmit={handleSubmit}
     >
-      {({ isSubmitting, setFieldValue }) => (
+      {({ isSubmitting, setFieldValue, errors }) => (
         <Form>
           <Card>
             <CardHeader
@@ -76,9 +73,22 @@ const Associacao: React.VFC = () => {
             <CardContent>
               <Grid container>
                 <Grid container spacing={2}>
-                  <Grid item xs={3}>
+                  <Grid item xs={1}>
+                    <Field name="id">
+                      {({ field }: FieldProps<Associacao>) => (
+                        <Input
+                          {...field}
+                          id="input-id"
+                          label="Código"
+                          fullWidth
+                          disabled
+                        />
+                      )}
+                    </Field>
+                  </Grid>
+                  <Grid item xs={10}>
                     <Field name="cnpj">
-                      {({ field }: FieldProps<IAssociacao>) => (
+                      {({ field }: FieldProps<Associacao>) => (
                         <Input
                           {...field}
                           id="input-cnpj"
@@ -89,9 +99,9 @@ const Associacao: React.VFC = () => {
                       )}
                     </Field>
                   </Grid>
-                  <Grid item xs={9}>
+                  <Grid item xs={8}>
                     <Field name="nome">
-                      {({ field }: FieldProps<IAssociacao>) => (
+                      {({ field }: FieldProps<Associacao>) => (
                         <Input
                           {...field}
                           id="input-nome"
@@ -104,7 +114,7 @@ const Associacao: React.VFC = () => {
                   </Grid>
                   <Grid item xs={3}>
                     <Field name="sigla">
-                      {({ field }: FieldProps<IAssociacao>) => (
+                      {({ field }: FieldProps<Associacao>) => (
                         <Input
                           {...field}
                           id="input-sigla"
@@ -115,9 +125,9 @@ const Associacao: React.VFC = () => {
                       )}
                     </Field>
                   </Grid>
-                  <Grid item xs={9}>
+                  <Grid item xs={11}>
                     <Field name="cidade">
-                      {({ field }: FieldProps<IAssociacao>) => (
+                      {({ field }: FieldProps<Associacao>) => (
                         <Input
                           {...field}
                           id="input-cidade"
@@ -128,17 +138,19 @@ const Associacao: React.VFC = () => {
                       )}
                     </Field>
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item xs={12}>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                      <Field name="data">
-                        {({ field }: FieldProps<IAssociacao>) => (
+                      <Field name="data_cadastro">
+                        {({ field }: FieldProps<Associacao>) => (
                           <KeyboardDatePicker
                             {...field}
                             disableToolbar
                             id="input-data"
                             format="dd/MM/yyyy"
                             label="Data de Cadastro"
-                            onChange={date => setFieldValue('data', date)}
+                            onChange={date =>
+                              setFieldValue('data_cadastro', date)
+                            }
                             invalidDateMessage="Formato inválido"
                             disabled
                           />
@@ -163,4 +175,4 @@ const Associacao: React.VFC = () => {
   );
 };
 
-export default Associacao;
+export default AssociacaoPage;
