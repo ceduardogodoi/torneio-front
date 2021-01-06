@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Toolbar, makeStyles, Theme, createStyles } from '@material-ui/core';
 
-import Associacao from './pages/Associacao';
+import AssociacaoPage from './pages/AssociacaoPage';
 
 const useStyles = makeStyles<Theme>((theme: Theme) =>
   createStyles({
@@ -21,7 +21,7 @@ const Router: React.VFC = () => {
       <Toolbar />
       <BrowserRouter>
         <Switch>
-          <Route path="/associacao" component={Associacao} />
+          <Route path="/associacao" component={AssociacaoPage} />
         </Switch>
       </BrowserRouter>
     </main>
